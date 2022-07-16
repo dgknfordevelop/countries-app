@@ -1,25 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState }  from 'react';
+import {Routes, Route} from 'react-router-dom';
+
+import Header from './components/Header';
+import Main from './components/Main';
+import CountryDetail from './components/CountryDetail';
+
+export const Context = React.createContext();
+export const themeContext = React.createContext();
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const [data, setData] = useState([]);
+const [style, setStyle] = useState(JSON.parse(localStorage.getItem('style')));
+
+useEffect(() => {
+  fetch("https://restcountries.com/v3.1/all")
+  .then(response => response.json())
+  .then(data => setData(data.map(country => country)))
+
+ },[])
+ 
+ useEffect(()=>{
+    localStorage.setItem("style", JSON.stringify(style))
+ }, [style])
+ 
+ function toggleTheme(){
+    setStyle(style === "dark" ? "" : "dark")
+ }
+ 
+ return (
+    <Context.Provider value={data}>
+      <div className={style}>
+        <themeContext.Provider value={toggleTheme}>
+          <Header />
+        </themeContext.Provider>  
+          <Routes>
+            
+              <Route path="/" element={<Main />} />
+              <Route path="/:country" element={<CountryDetail />} /> 
+          </Routes>
+      </div>
+    </Context.Provider>
+  )
 }
 
 export default App;
