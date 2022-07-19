@@ -11,8 +11,8 @@ export default function CountryDetail(){
     let filteredCountry = countryData.filter((detailedCountry) => { // filter country data according to the url
       let searchCountry = params.country;
       if (!searchCountry) return true;
-      let CountrynName = detailedCountry.name.official.toLowerCase();
-      return CountrynName.startsWith(searchCountry)
+      let CountryName = detailedCountry.name.official.toLowerCase();
+      return CountryName.startsWith(searchCountry)
     })
 
     let filteredBorderCountry = countryData.filter((item) => { // filter countries that border the filtered country to use them later in the component
