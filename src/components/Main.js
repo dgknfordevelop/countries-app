@@ -11,11 +11,14 @@ import { Context } from '../App';
     let navigate = useNavigate();
 
     const [searchInput, setSearchInput] = React.useState("") 
-    const [continent, setContinent] = React.useState("Filter by Region")
-   
+    const [continent, setContinent] = React.useState("Filter by Region")    
+
     function inputChange(e){
-        setSearchInput(e.target.value)
-        setContinent("Filter by Region")
+    
+            setSearchInput(e.target.value.slice(1))
+            setContinent("Filter by Region")
+        
+        console.log( e.target.value.length)
     }
 
     function continentChange(selectContinent){
@@ -28,12 +31,16 @@ import { Context } from '../App';
         navigate(`/${countrySearch}`)
     }
     
+    
     return(
-        <div className="flex flex-col items-center sm:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 lg:gap-x-16 sm:pl-10 min-h-screen text-[14px] pt-6 lg:pr-16 bg-very-light-gray dark:bg-very-dark-blue">
+        <div className="flex flex-col items-center sm:grid sm:auto-rows-min grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 lg:gap-x-16
+         pt-6 sm:pl-10 lg:pr-16 min-h-screen text-[14px] bg-very-light-gray dark:bg-very-dark-blue">
+
             <div className="lg:flex lg:justify-between w-full lg:w-full pl-5 sm:pl-0 sm:col-span-2 lg:col-span-3 xl:col-span-4">
                     <div className="rounded-md bg-white flex w-11/12 sm:w-[370px] h-12 mb-10 pl-7 dark:bg-dark-blue drop-shadow-md">
                         <span className="w-fit text-dark-gray flex justify-center items-center dark:text-white"><AiOutlineSearch className="text-xl" /></span>
-                        <input placeholder="Search for a country..." className="rounded-md dark:bg-dark-blue dark:placeholder:text-white focus:outline-none dark:text-white w-11/12 h-full pl-6" value={searchInput} onChange={inputChange} type="search" />
+                        <input placeholder="Search for a country..." className="rounded-md dark:bg-dark-blue dark:placeholder:text-white focus:outline-none dark:text-white w-11/12 h-full pl-6"
+                         onChange={inputChange} type="search" />
                     </div>
                     
                     
@@ -47,8 +54,18 @@ import { Context } from '../App';
                         <option value="Oceania">Oceania</option>
                     </select>
             </div>
-
-            {countryData.filter(country => {
+        
+            {countryData.sort(
+                (a, b) => {
+                    if (a.name.common < b.name.common) {
+                        return -1;
+                    }
+                    if (a.name.common > b.name.common) {
+                        return 1;
+                    }
+                    return 0;
+                }
+            ).filter(country => {
                 if(continent === "Filter by Region" && searchInput === ""){
                     return country
                 }
