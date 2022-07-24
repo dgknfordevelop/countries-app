@@ -1,6 +1,12 @@
 # Countries App
-Countries with REST Countries API project is a responsive React project. The project CSS is built and maintained with Tailwind CSS. The features include dark/light theme switch, showing a detailed page about each country when clicked upon, searching by country name and filtering according to continent selection. 
+Countries with REST Countries API project is a responsive React project. The project CSS is built and maintained with Tailwind CSS. The features include dark/light theme switch, showing a detailed page about each country when clicked upon, searching by country name and filtering according to continent selection.
 
+# Install Project to Local
+```terminal
+git clone https://github.com/dgknfordevelop/countries-app.git
+cd countries-app
+npm install
+```
 ## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
