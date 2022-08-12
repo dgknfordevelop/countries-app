@@ -21,12 +21,11 @@ useEffect(() => {
  
  useEffect(()=>{
     localStorage.setItem("style", JSON.stringify(style))
+    document.documentElement.classList.toggle("bg-very-dark-blue", style === "dark")
  }, [style])
  
  function toggleTheme(){
     setStyle(style === "dark" ? "" : "dark")
-    document.documentElement.classList.toggle("bg-very-dark-blue", style !== "dark")
-
  }
   
  
