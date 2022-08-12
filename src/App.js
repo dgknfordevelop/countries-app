@@ -25,7 +25,10 @@ useEffect(() => {
  
  function toggleTheme(){
     setStyle(style === "dark" ? "" : "dark")
+    document.documentElement.classList.toggle("bg-very-dark-blue", style !== "dark")
+
  }
+  
  
  return (
     <Context.Provider value={data}>
@@ -34,7 +37,6 @@ useEffect(() => {
           <Header />
         </themeContext.Provider>  
           <Routes>
-            
               <Route path="/" element={<Main />} />
               <Route path="/:country" element={<CountryDetail />} /> 
           </Routes>
